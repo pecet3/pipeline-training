@@ -31,7 +31,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handleRequest)
 
-	err := http.ListenAndServeTLS(":8070", "server.crt", "server.key", nil)
+	err := http.ListenAndServe(":8070", nil)
 	if err != nil {
 		log.Fatal("ListenAndServeTLS: ", err)
 	}
