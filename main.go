@@ -33,6 +33,6 @@ func main() {
 
 	err := http.ListenAndServe(":8070", nil)
 	if err != nil {
-		log.Fatal("ListenAndServeTLS: ", err)
+		log.Fatal("ListenAndServe: ", err)
 	}
 }
