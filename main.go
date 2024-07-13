@@ -29,6 +29,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	log.Println("Starting a server")
 	http.HandleFunc("/", handleRequest)
 
 	err := http.ListenAndServe(":8070", nil)
