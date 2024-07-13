@@ -31,11 +31,10 @@ jobs:
         VPS_HOST: ${{ secrets.VPS_HOST }}
         VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
         VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-        DOCKER_IMAGE: pecet31:$(date +%s)
       run: |
         echo "$VPS_SSH_KEY" > vps_ssh_key
         chmod 600 vps_ssh_key
-        docker save $DOCKER_IMAGE | ssh -i vps_ssh_key -p 10111 -o StrictHostKeyChecking=no $VPS_USERNAME@$VPS_HOST "docker load && docker stop pecet31-container || true && docker rm pecet31-container || true && docker run -d --name pecet31-container -p 8070:8070 $DOCKER_IMAGE"
+        docker save pecet31:pipeline | ssh -i vps_ssh_key -p 10111 -o StrictHostKeyChecking=no $VPS_USERNAME@$VPS_HOST "docker load && docker stop pecet31-container || true && docker rm pecet31-container || true && docker run -d --name pecet31-container -p 8070:8070 pecet31:pipeline"
         rm vps_ssh_key
 
       
