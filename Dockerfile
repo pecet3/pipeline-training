@@ -12,4 +12,4 @@ RUN go build -o main .
 
 EXPOSE 8070
 
-
+CMD ["./main"]
