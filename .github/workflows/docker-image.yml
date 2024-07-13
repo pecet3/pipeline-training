@@ -24,7 +24,7 @@ jobs:
       run: go test -v ./...
       
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pecet31:pipeline
+      run: docker build . --file Dockerfile --tag pecet31/pipeline:latest
 
     - name: Deploy on VPS
       env:
@@ -34,7 +34,7 @@ jobs:
       run: |
         echo "$VPS_SSH_KEY" > vps_ssh_key
         chmod 600 vps_ssh_key
-        docker save pecet31:pipeline | ssh -i vps_ssh_key -p 10111 -o StrictHostKeyChecking=no $VPS_USERNAME@$VPS_HOST "docker load && docker stop pecet31-container || true && docker rm pecet31-container || true && docker run -d --name pecet31-container -p 8070:8070 pecet31:pipeline"
+        docker save pecet31/pipeline:latest | ssh -i vps_ssh_key -p 10111 -o StrictHostKeyChecking=no $VPS_USERNAME@$VPS_HOST "docker load && docker stop pecet31-container || true && docker rm pecet31-container || true && docker run -d --name pecet31-container -p 8070:8070 pecet31/pipeline:latest"
         rm vps_ssh_key
 
       
